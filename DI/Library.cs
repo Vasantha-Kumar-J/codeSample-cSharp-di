@@ -6,11 +6,11 @@ namespace DI
     {
         // Not the best logic 😋 - Logic kept simple for brevity.
 
-        public InMemoryBookDataSource DataSource { get;}
+        public IBookDataSource DataSource { get;}
 
-        public Library()
+        public Library(IBookDataSource dataSource)
         {
-            DataSource = new InMemoryBookDataSource();
+            DataSource = dataSource;
         }
 
         public void AddNewBook(string bookID, string bookName)

@@ -11,7 +11,8 @@ namespace DI.Test
         [Fact]
         public void EmptyLibrary_AddNewBook_BookAvailbleForRent()
         {
-            Library library = new Library();
+            var dataSource = new InMemoryBookDataSource();
+            Library library = new Library(dataSource);
 
             library.AddNewBook(_testBookID, _testBookName);
 
@@ -21,7 +22,8 @@ namespace DI.Test
         [Fact]
         public void LibraryWithBook_RentBook_BookNotAvailbleForRent()
         {
-            Library library = new Library();
+            var dataSource = new InMemoryBookDataSource();
+            Library library = new Library(dataSource);
             library.AddNewBook(_testBookID, _testBookName);
 
             library.TryRentBook(_testBookID);
@@ -32,7 +34,8 @@ namespace DI.Test
         [Fact]
         public void BookRented_SubmitBook_BookAvailbleForRent()
         {
-            Library library = new Library();
+            var dataSource = new InMemoryBookDataSource();
+            Library library = new Library(dataSource);
             library.AddNewBook(_testBookID, _testBookName);
             library.TryRentBook(_testBookID);
 
