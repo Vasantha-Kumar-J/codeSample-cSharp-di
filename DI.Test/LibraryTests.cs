@@ -1,5 +1,6 @@
-using DI;
 using DI.DataSource;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace DI.Test
 {
@@ -7,12 +8,23 @@ namespace DI.Test
     {
         private string _testBookID = "SOL1";
         private string _testBookName = "Around the world in 80 Days";
+        private IHost _host;
+
+        public LibraryTests()
+        {
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureServices((_, services) =>
+                {
+                    services.AddTransient<IBookDataSource, InMemoryBookDataSource>();
+                    services.AddTransient<Library>();
+                })
+                .Build();
+        }
 
         [Fact]
         public void EmptyLibrary_AddNewBook_BookAvailbleForRent()
         {
-            var dataSource = new InMemoryBookDataSource();
-            Library library = new Library(dataSource);
+            var library = _host.Services.GetService<Library>();
 
             library.AddNewBook(_testBookID, _testBookName);
 
@@ -22,8 +34,7 @@ namespace DI.Test
         [Fact]
         public void LibraryWithBook_RentBook_BookNotAvailbleForRent()
         {
-            var dataSource = new InMemoryBookDataSource();
-            Library library = new Library(dataSource);
+            var library = _host.Services.GetService<Library>();
             library.AddNewBook(_testBookID, _testBookName);
 
             library.TryRentBook(_testBookID);
@@ -34,8 +45,7 @@ namespace DI.Test
         [Fact]
         public void BookRented_SubmitBook_BookAvailbleForRent()
         {
-            var dataSource = new InMemoryBookDataSource();
-            Library library = new Library(dataSource);
+            var library = _host.Services.GetService<Library>();
             library.AddNewBook(_testBookID, _testBookName);
             library.TryRentBook(_testBookID);
 
