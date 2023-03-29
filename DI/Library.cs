@@ -30,8 +30,7 @@ namespace DI
         }
 
         public bool SubmitBook(string bookID)
-        {
-            
+        {            
             try
             {
                 DataSource.UpdateBookStatus(bookID, availableToRent: true);
