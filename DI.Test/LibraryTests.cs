@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace DI.Test
 {
+    /// <summary>
+    /// Test Class for <see cref="Library"/>
+    /// </summary>
     public class LibraryTests
     {
         private string _testBookID = "SOL1";
