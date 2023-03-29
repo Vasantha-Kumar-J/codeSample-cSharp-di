@@ -42,6 +42,27 @@ namespace DI
 
             var availabilty = library.DataSource.IsBookAvailableToRent(testBookID);
             #endregion
+
+            # region Scoped
+            //var host = Host.CreateDefaultBuilder(args)
+            //    .ConfigureServices((_, services) =>
+            //    {
+            //        services.AddScoped<IBookDataSource, InMemoryBookDataSource>();
+            //        services.AddSingleton<Library>();
+            //    })
+            //    .Build();
+
+            //using var scope1 = host.Services.CreateScope();
+            //scope1.ServiceProvider.GetService<IBookDataSource>();
+            //var a = scope1.ServiceProvider.GetService<IBookDataSource>();
+
+
+            //using var scope2 = host.Services.CreateScope();
+            //var x = scope2.ServiceProvider.GetService<IBookDataSource>();
+            //var y = scope2.ServiceProvider.GetService<IBookDataSource>();
+            //var isSameObject = object.ReferenceEquals(a, x); // False since different Scope
+            //var isSameObject2 = object.ReferenceEquals(x, y); // True since same scope
+            #endregion
         }
     }
 }
